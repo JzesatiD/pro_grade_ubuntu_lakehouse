@@ -22,3 +22,15 @@ load/
 *.log
 .vscode/
 .DS_Store
+
+# 1. dbt Temporary Logs & Personal Notes
+dbt_debug_log.txt
+dbt_refinery_notes
+
+# 2. dbt Default Example Models
+my_first_dbt_model.sql
+my_second_dbt_model.sql
+schema.yml
+
+# 3. Raw Data (Never push CSVs to GitHub)
+inventory.csv
