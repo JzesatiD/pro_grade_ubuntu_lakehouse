@@ -1,0 +1,23 @@
+requires_meltano: ">=3.0"
+default_environment: dev
+project_id: nova_pipeline
+environments:
+- name: dev
+plugins:
+  extractors:
+  - name: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      # Direct file mapping
+      files:
+      - entity: inventory
+        path: ../../melt-landing-zone/nova_retail/inventory.csv
+        keys: [id]
+        delimiter: ','
+  loaders:
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      default_target_schema: raw_nova_retail

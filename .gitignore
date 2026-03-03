@@ -1,0 +1,24 @@
+# 1. Credentials
+.env
+profiles.yml
+.dbt/
+
+# 2. Virtual Envs & Libraries (Aggressive)
+*venv*/
+*env*/
+.meltano/
+__pycache__/
+*.pyc
+
+# 3. dbt & Meltano Build Junk
+target/
+dbt_packages/
+logs/
+extract/
+load/
+
+# 4. Metadata & Logs
+*.json
+*.log
+.vscode/
+.DS_Store

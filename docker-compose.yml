@@ -1,0 +1,42 @@
+# version: '3.8'- due to version obsolete warning, its been commented out. 
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_lab
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./projects:/tmp/projects  # The Universal Bridge
+    networks:
+      - lab_network
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase_lab
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${DB_NAME}
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${DB_USER}
+      MB_DB_PASS: ${DB_PASSWORD}
+      MB_DB_HOST: db
+    networks:
+      - lab_network
+    depends_on:
+      - db
+
+networks:
+  lab_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
